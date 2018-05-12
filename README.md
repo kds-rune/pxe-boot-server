@@ -1,6 +1,6 @@
 # pxe-boot-server
 
-..in proggress..
+..in progress..
 
 ## Resources
 
@@ -16,3 +16,15 @@ Dedicated installation on RedHat-based server (CentOS) using CLI, using dnsmasq
 
 1) Install required software:
   - # yum -y install dnsmasq syslinux pxelinux
+
+2) Configure dnsmasq: see /example/dnsmasq.conf
+  - # vi /etc/dnsmasq.conf
+
+    port=0
+ 
+    log-dhcp
+    dhcp-range=<ip-range-start>,<ip-range-end>,<ip-subnet>,<lease-time>
+    dhcp-option=<option-id>,<configuration>
+
+    enable-tftp
+    tftp-root=/var/lib/tftpboot
