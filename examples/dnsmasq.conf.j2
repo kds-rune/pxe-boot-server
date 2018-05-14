@@ -1,0 +1,51 @@
+{{ ansible_managed | comment }}
+dhcp-range={{ dhcp['range_start'] }},{{ dhcp['range_end'] }},{{ dhcp['lease_time']}}
+
+enable-tftp
+tftp-root={{ tftp['root_folder'] }}# /var/lib/tftpboot
+
+# Legacy PXE
+dhcp-match=set:bios,option:client-arch,0
+dhcp-boot=tag:bios,undionly.kpxe
+
+# UEFI
+dhcp-match=set:efi32,option:client-arch,6
+dhcp-boot=tag:efi32,ipxe.efi
+
+dhcp-match=set:efibc,option:client-arch,7
+dhcp-boot=tag:efibc,ipxe.efi
+
+dhcp-match=set:efi64,option:client-arch,9
+dhcp-boot=tag:efi64,ipxe.efi
+
+# iPXE - chainload to matchbox ipxe boot script
+dhcp-userclass=set:ipxe,iPXE # dhcp option 77
+dhcp-boot=tag:ipxe,{{ ipxe['host_address'] }}/{{ ipxe['host_image'] }}
+
+# verbose
+log-queries
+log-dhcp
+
+# static DNS assignements
+#address=/{{ ipxe['host_name'] }}/{{ ipxe['host_address'] }}
+
+# disable DNS and specify alternate
+port=0
+dhcp-option=6,{{ dhcp['dns_servers'] | join(',') }}
+
+## USEFULL INFORMATION
+#
+#  dhcp standard: rfc4578
+#
+#      Id   Name
+#      ---  -----------------
+#       0    Intel x86PC
+#       1    NEC/PC98
+#       2    EFI Itanium
+#       3    DEC Alpha
+#       4    Arc x86
+#       5    Intel Lean Client
+#       6    EFI IA32
+#       7    EFI BC
+#       8    EFI Xscale
+#       9    EFI x86-64
