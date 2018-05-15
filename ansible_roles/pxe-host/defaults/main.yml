@@ -1,0 +1,38 @@
+---
+##
+## Will add descriptions in the future
+##
+
+##
+# Required software
+##
+software:
+- dnsmasq
+- syslinux
+- firewalld
+
+
+##
+# DNSMASQ: dhcp settings for dnsmasq.config.j2
+##
+dhcp:
+  range_start: '172.16.10.1'
+  range_end: '172.16.10.255'
+  lease_time: '30m'
+  dns_servers:
+  - '208.67.222.222'
+  - '208.67.220.220'
+
+##
+# DNSMASQ: tFTP settings for dnsmasq.config.j2
+##
+tftp:
+  root_folder: '/var/lib/tftpboot'
+
+##
+# DNSMASQ: ipxe related settings for dnsmasq.config.j2
+##
+ipxe:
+  host_address: '172.16.8.50:8080'
+  host_name: 'ipxe-server.example.com'
+  host_image: 'boot.ipxe'

@@ -1,0 +1,7 @@
+{{ ansible_managed | comment }}
+timeout 10
+default iPXE
+
+LABEL iPXE
+KERNEL ipxe.lkrn
+APPEND dhcp && chain {{ ipxe['host_address'] }}/boot.ipxe

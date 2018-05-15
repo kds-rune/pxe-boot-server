@@ -1,0 +1,12 @@
+---
+# handlers file for roles/boot-server
+
+##
+## Restart dnsmasq service
+##
+- name: svc_dnsmasq
+  become: true
+  service:
+    name: dnsmasq
+    enabled: yes
+    state: restarted

@@ -1,0 +1,65 @@
+{{ ansible_managed | comment }}
+##
+## Enable dhcp & give it a range & time
+##
+dhcp-range={{ dhcp['range_start'] }},{{ dhcp['range_end'] }},{{ dhcp['lease_time']}}
+
+
+##
+## Enable tFTP server, and define the root<F2>boot folder
+## It is important that this directory exists, otherwise dnsmasq
+## service will fail
+##
+enable-tftp
+tftp-root={{ tftp['root_folder'] }}# /var/lib/tftpboot
+
+##
+## dhcp-match: this will register the architecture from the dhcp-client
+##             and set a custom tag
+##
+##     0 : Intel x86PC
+##     1 : NEC/PC98
+##     2 : EFI Itanium
+##     3 : DEC Alpha
+##     4 : Arc x86
+##     5 : Intel Lean Client
+##     6 : EFI IA32
+##     7 : EFI BC
+##     8 : EFI Xscale
+##     9 : EFI x86-64
+##
+## dhcp-boot: this will direct the client to a bootfile, depending on which
+##            tag is set
+##
+##     pxeboot.0    : standard (?)
+##     undionly.pxe : ipxe
+##
+# BIOS
+dhcp-match=set:bios,option:client-arch,0
+dhcp-boot=tag:bios,pxelinux.0
+
+# UEFI
+#dhcp-match=set:efi32,option:client-arch,6
+#dhcp-boot=tag:efi32,ipxe.efi
+
+#dhcp-match=set:efibc,option:client-arch,7
+#dhcp-boot=tag:efibc,ipxe.efi
+
+#dhcp-match=set:efi64,option:client-arch,9
+#dhcp-boot=tag:efi64,ipxe.efi
+
+# verbose
+log-queries
+log-dhcp
+
+# static DNS assignements
+#address=/{{ ipxe['host_name'] }}/{{ ipxe['host_address'] }}
+
+##
+## DNS settings
+##
+## port: set to '0' to disable dns
+## dhcp-option: set alternative dns-servers (dhcp)
+##
+port=0
+dhcp-option=6,{{ dhcp['dns_servers'] | join(',') }}
