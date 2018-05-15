@@ -1,7 +1,12 @@
 {{ ansible_managed | comment }}
-timeout 10
-default iPXE
+default menu.c32
+prompt 0
+timeout 300
+ONTIMEOUT local
 
-LABEL iPXE
-KERNEL ipxe.lkrn
-APPEND dhcp && chain {{ ipxe['host_address'] }}/boot.ipxe
+MENU TITLE Main Menu
+
+LABEL Tools
+        MENU LABEL Tools
+        KERNEL menu.c32
+        APPEND pxelinux.cfg/tools

@@ -1,0 +1,22 @@
+{{ ansible_managed | comment }}
+MENU TITLE Tools Menu
+
+LABEL Main Menu
+        MENU LABEL Main Menu
+        KERNEL menu.c32
+        APPEND pxelinux.cfg/default
+
+LABEL Clonezilla
+        MENU LABEL Clonezilla
+        KERNEL menu.c32
+        APPEND pxelinux.cfg/clonezilla
+
+LABEL Pmajic
+        MENU LABEL Pmajic
+        kernel images/pmagic/bzImage
+        append noapic initrd=images/pmagic/initrd.gz root=/dev/ram0 init=/linuxrc ramdisk_size=100000
+
+label Dos Bootdisk
+        MENU LABEL ^Dos bootdisk
+        kernel memdisk
+        append initrd=images/622c.img

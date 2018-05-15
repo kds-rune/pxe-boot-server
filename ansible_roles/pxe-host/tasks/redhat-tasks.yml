@@ -40,15 +40,18 @@
     backup: yes
   notify: svc_dnsmasq
 
-- name: RedHat | copy idefault menu template
+- name: RedHat | copy default menu templates
   become: true
   template:
-    src: default.j2
-    dest: /var/lib/tftpboot/pxelinux.cfg/default
+    src: "{{ item }}.j2"
+    dest: "/var/lib/tftpboot/pxelinux.cfg/{{ item }}"
     owner: root
     group: root
     mode: 0644
     backup: yes
+  loop:
+  - default
+  - tools
   notify: svc_dnsmasq
 
 - name: RedHat | link to pxelinux files
