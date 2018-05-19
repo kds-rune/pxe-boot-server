@@ -57,9 +57,13 @@
 - name: RedHat | link to pxelinux files
   become: true
   file:
-    src: /usr/share/syslinux/pxelinux.0
-    dest: /var/lib/tftpboot/pxelinux.0
+    src: "/usr/share/syslinux/{{ item }}"
+    dest: "/var/lib/tftpboot/{{ item }}"
     state: link
+  loop:
+  - pxelinux.0
+  - menu.c32
+  
 
 - name: RedHat | download ipxe bootfiles
   become: true
