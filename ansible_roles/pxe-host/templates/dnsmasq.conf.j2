@@ -11,7 +11,7 @@ dhcp-range={{ dhcp['range_start'] }},{{ dhcp['range_end'] }},{{ dhcp['lease_time
 ## service will fail
 ##
 enable-tftp
-tftp-root={{ tftp['root_folder'] }}# /var/lib/tftpboot
+tftp-root={{ tftp['root_folder'] }}
 
 ##
 ## dhcp-match: this will register the architecture from the dhcp-client
