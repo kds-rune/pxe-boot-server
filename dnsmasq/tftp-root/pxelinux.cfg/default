@@ -1,0 +1,20 @@
+##
+## https://www.syslinux.org/wiki/index.php
+##
+
+## Setting default parameters
+default menu.c32
+prompt 0
+timeout 100
+ONTIMEOUT chainlocal
+
+## Local boot
+LABEL local
+        MENU LABEL Boot local hard drive
+        LOCALBOOT 0
+
+## Local boot
+LABEL chainlocal
+	MENU LABEL Chain boot to local hard drive
+	KERNEL chain.c32
+        APPEND hd0
