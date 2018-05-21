@@ -2,7 +2,9 @@
 sudo docker run -d --rm --cap-add=NET_ADMIN --network="host"  quay.io/coreos/dnsmasq \
   --no-daemon \
   --log-dhcp \
-  --log-queries
+  --log-queries \
+  --enable-tftp \
+  --tftp-root=/var/lib/tftpboot \
   --dhcp-range=172.16.10.100,172.16.10.200,10m \
   --dhcp-option=3,172.16.8.100 \
   --dhcp-option=42,129.240.2.6 \
