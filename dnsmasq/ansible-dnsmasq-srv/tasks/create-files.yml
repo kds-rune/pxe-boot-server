@@ -1,0 +1,37 @@
+
+---
+##
+- name: Template | dnsmasq template
+  become: true
+  template:
+    src: dnsmasq.conf.j2
+    dest: /etc/dnsmasq.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  notify: svc_dnsmasq
+
+- name: Template | default pxe menu
+  become: true
+  template:
+    src: "{{ item }}.j2"
+    dest: "/var/lib/tftpboot/pxelinux.cfg/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  loop:
+  - default
+  - tools
+  notify: svc_dnsmasq
+
+- name: Link | link syslinux files
+  become: true
+  file:
+    src: "/usr/share/syslinux/{{ item }}"
+    dest: "/var/lib/tftpboot/{{ item }}"
+    state: link
+  loop:
+  - pxelinux.0
+  - menu.c32

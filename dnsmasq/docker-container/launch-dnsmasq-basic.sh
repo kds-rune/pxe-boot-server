@@ -1,6 +1,6 @@
 #!/bin/bash
 sudo docker run -d --rm --cap-add=NET_ADMIN --network="host"  quay.io/coreos/dnsmasq \
-   --no-daemon \
+  --no-daemon \
   --log-dhcp \
   --log-queries
   --dhcp-range=172.16.10.100,172.16.10.200,10m \

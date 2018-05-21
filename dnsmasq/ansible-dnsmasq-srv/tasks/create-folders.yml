@@ -1,0 +1,19 @@
+---
+##
+- name: Folder | tftp root
+  become: true
+  file:
+    path: /var/lib/tftpboot
+    state: directory
+    owner: nobody
+    group: nobody
+    mode: 0777
+
+- name: Folder | pxe configs
+  become: true
+  file:
+    path: /var/lib/tftpboot/pxelinux.cfg
+    state: directory
+    owner: nobody
+    group: nobody
+    mode: 0777

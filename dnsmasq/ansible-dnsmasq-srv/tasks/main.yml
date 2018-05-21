@@ -1,0 +1,21 @@
+---
+# tasks file for roles/boot-server
+
+- name: include os tasks
+  block:
+  - include_tasks: "{{ ansible_os_family | lower }}-install.yml"
+  - include_tasks: "{{ ansible_os_family | lower }}-firewall.yml"
+  rescue:
+  - debug: msg="os is not supported"
+  always:
+  - meta: flush_handlers
+
+- name: import common tasks
+  block:
+  - import_tasks: create-folders.yml
+  - import_tasks: create-files.yml
+  - import_tasks: download-files.yml
+  rescue:
+  - debug: msg="installation failed"
+  always:
+  - meta: flush_handlers

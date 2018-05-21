@@ -1,0 +1,11 @@
+---
+##
+- name: Download | ipxe bootfiles
+  become: true
+  get_url:
+    url: "http://boot.ipxe.org/{{ item }}"
+    dest: "/var/lib/tftpboot/{{ item }}"
+  loop:
+  - ipxe.efi
+  - undionly.kpxe
+  - ipxe.lkrn

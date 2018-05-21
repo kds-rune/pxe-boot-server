@@ -1,0 +1,29 @@
+---
+##
+## Firewall rules:
+##   - dns:
+##   - dhcp
+##   - tftp
+##   - ipxe
+##
+- name: RedHat | dnsmasq firewall services
+  become: true
+  fiewalld:
+    service: "{{ item }}"
+    permanent: true
+    state: enabled
+  loop:
+  - dhcp
+  - tftp
+  notify: svc_firewalld
+
+- name: RedHat | ipxe firewall ports
+  become: true
+  firewalld:
+    port: "{{ item }}/tcp"
+    permanent: true
+    state: enabled
+  loop:
+  - 8080
+  - 8081
+  notify: svc_firewalld
