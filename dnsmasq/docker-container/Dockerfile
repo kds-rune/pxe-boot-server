@@ -12,7 +12,7 @@ EXPOSE 53 67/udp 69/udp
 
 # https://pkgs.alpinelinux.org/packages
 RUN ["apk","--no-cache","add","dnsmasq","syslinux"]
-RUN ["ln -s","/usr/share/syslinux/*","/var/lib/tftpboot"]
+RUN ["cp","/usr/share/syslinux/*","/var/lib/tftpboot/"]
 
 #COPY ["./tftpboot","/var/lib/tftpboot"]
 
