@@ -11,8 +11,9 @@ MAINTAINER Rune Rønneseth (rune.ronneseth@kred.no)
 EXPOSE 53 67/udp 69/udp
 
 # https://pkgs.alpinelinux.org/packages
-RUN ["apk","--no-cache","add","dnsmasq","syslinux"]
-RUN ["cp","/usr/share/syslinux/*","/var/lib/tftpboot/"]
+RUN ["apk --no-cache add","dnsmasq","syslinux"]
+RUN ["mkdir","/var/lib/tftpboot"]
+RUN ["ln -s","/usr/share/syslinux/*","/var/lib/tftpboot"]
 
 #COPY ["./tftpboot","/var/lib/tftpboot"]
 
