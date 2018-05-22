@@ -1,0 +1,7 @@
+---
+##
+- name: RedHat | configure selinux
+  become: true
+    conf: /etc/selinux/config
+    policy: targeted
+    state: permissive

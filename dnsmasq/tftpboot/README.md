@@ -2,6 +2,12 @@
 
 This folder shows an example structure for a basic pxe-bootserver
 
+/var/lib/tftpboot
+|-- pxelinux.cfg
+   |-- default
+|-- pxelinux.0
+|-- menu.c32
+
 - root folder: pxe bootimages (from syslinux)
 - images: boot-imagefiles (vmlinuz and initrd.img from distros)
 - pxelinux.cfg: config/menufiles

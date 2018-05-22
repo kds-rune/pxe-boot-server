@@ -5,8 +5,13 @@
   block:
   - include_tasks: "{{ ansible_os_family | lower }}-install.yml"
   - include_tasks: "{{ ansible_os_family | lower }}-firewall.yml"
+  - include_tasks: "{{ ansible_os_family | lower }}-selinux.yml"
   rescue:
   - debug: msg="os is not supported"
+  always:
+  - meta: flush_handlers
+  rescue:
+  - debug: msg="{{ ansible_os_family }} not supported!"
   always:
   - meta: flush_handlers
 
